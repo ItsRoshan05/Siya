@@ -4,10 +4,8 @@ Siya adalah sebuah Sistem Informasi Yayasan yang dibangun menggunakan Laravel. A
 
 ## Fitur
 
-- **Manajemen Donatur**: Mengelola data donatur dan riwayat donasi.
-- **Manajemen Penerima Bantuan**: Mengelola data penerima bantuan dan jenis bantuan yang diterima.
+- **Manajemen Donatur**: Mengelola data donasi dan riwayat donasi.
 - **Manajemen Keuangan**: Mencatat transaksi keuangan yayasan (pemasukan dan pengeluaran).
-- **Manajemen Kegiatan**: Mengelola kegiatan atau acara yang diselenggarakan oleh yayasan.
 - **Laporan**: Menampilkan laporan keuangan dan kegiatan secara lengkap.
 
 ## Prasyarat
