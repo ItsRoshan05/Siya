@@ -1,6 +1,9 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ClientController;
+use App\Http\Controllers\DashminController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,8 +28,17 @@ Route::post('register', [AuthController::class, 'register']);
 
 // Logout route
 Route::any('logout', [AuthController::class, 'logout'])->name('logout');
-Route::get('/', function () {
-    return view('welcome');
+
+
+//Admin Route
+Route::prefix('admin')->middleware('auth')->group(function (){
+    Route::get('',[DashminController::class, 'index']);
+    Route::resource('users', UserController::class);
+    
 });
 
-Route::view('/dashboard','client.index');
+
+// client Route
+Route::get('/',[ClientController::class,'index']);
+Route::post('/donation', [ClientController::class, 'storeDonation'])->name('donation.store');
+Route::get('/thank-you', [ClientController::class, 'thankYou'])->name('thank-you');
