@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\DashminController;
+use App\Http\Controllers\DonationController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -34,7 +35,7 @@ Route::any('logout', [AuthController::class, 'logout'])->name('logout');
 Route::prefix('admin')->middleware('auth')->group(function (){
     Route::get('',[DashminController::class, 'index']);
     Route::resource('users', UserController::class);
-    
+    Route::resource('donations',DonationController::class);
 });
 
 

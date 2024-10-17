@@ -270,6 +270,60 @@
 
         </section><!-- /About Section -->
 
+        <!-- Section Riwayat Donasi -->
+        <section class="container mt-5">
+            <h2 class="text-center mb-4">Riwayat Donasi</h2>
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Nama</th>
+                            <th>Email</th>
+                            <th>Jumlah Donasi</th>
+                            <th>Jenis Donasi</th>
+                            <th>Pesan</th>
+                            <th>Status Verifikasi</th>
+                            <th>Bukti Pembayaran</th>
+                            <th>Tanggal Donasi</th>
+                            <th>Terakhir Diperbarui</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($donations as $donate)
+                            <tr>
+                                <td>{{ $donate->nama }}</td>
+                                <td>{{ $donate->email }}</td>
+                                <td>Rp{{ number_format($donate->donation_amount, 0, ',', '.') }}
+                                </td>
+                                <td>{{ $donate->donation_type }}</td>
+                                <td>{{ $donate->donation_message }}</td>
+                                <td>
+                                    @if($donate->is_verify)
+                                        <span class="badge badge-success">Terverifikasi</span>
+                                    @else
+                                        <span class="badge badge-warning">Belum Terverifikasi</span>
+                                    @endif
+                                </td>
+                                <td>
+                                    @if($donate->payment_proof)
+                                        <a href="{{ asset('storage/payment_proofs/' . $donate->payment_proof) }}"
+                                            target="_blank">
+                                            <img src="{{ asset('storage/payment_proofs/' . $donate->payment_proof) }}"
+                                                alt="Bukti Pembayaran" style="width: 100px; height: auto;">
+                                        </a>
+                                    @else
+                                        <span class="text-muted">Tidak ada</span>
+                                    @endif
+                                </td>
+                                <td>{{ $donate->created_at->format('d M Y H:i') }}</td>
+                                <td>{{ $donate->updated_at->format('d M Y H:i') }}</td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
 
         <!-- Features Section -->
         <section id="features" class="features section">
@@ -314,8 +368,9 @@
             </div>
 
             <div class="container" data-aos="fade-up" data-aos-delay="200">
-                <form action="{{route('donation.store')}}" method="POST" class="donation-form" enctype="multipart/form-data">
-                  @csrf
+                <form action="{{ route('donation.store') }}" method="POST" class="donation-form"
+                    enctype="multipart/form-data">
+                    @csrf
                     <div class="row mb-3">
                         <div class="col-md-6">
                             <label for="nama" class="form-label">Nama: </label>
