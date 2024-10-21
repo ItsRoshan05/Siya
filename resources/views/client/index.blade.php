@@ -270,96 +270,73 @@
 
         </section><!-- /About Section -->
 
-        <!-- Section Riwayat Donasi -->
-        <section class="container mt-5">
-            <h2 class="text-center mb-4">Riwayat Donasi</h2>
-            <div class="table-responsive">
-                <table class="table table-striped table-bordered">
-                    <thead class="thead-dark">
-                        <tr>
-                            <th>Nama</th>
-                            <th>Email</th>
-                            <th>Jumlah Donasi</th>
-                            <th>Jenis Donasi</th>
-                            <th>Pesan</th>
-                            <th>Status Verifikasi</th>
-                            <th>Bukti Pembayaran</th>
-                            <th>Tanggal Donasi</th>
-                            <th>Terakhir Diperbarui</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($donations as $donate)
-                            <tr>
-                                <td>{{ $donate->nama }}</td>
-                                <td>{{ $donate->email }}</td>
-                                <td>Rp{{ number_format($donate->donation_amount, 0, ',', '.') }}
-                                </td>
-                                <td>{{ $donate->donation_type }}</td>
-                                <td>{{ $donate->donation_message }}</td>
-                                <td>
-                                    @if($donate->is_verify)
-                                        <span class="badge badge-success">Terverifikasi</span>
-                                    @else
-                                        <span class="badge badge-warning">Belum Terverifikasi</span>
-                                    @endif
-                                </td>
-                                <td>
-                                    @if($donate->payment_proof)
-                                        <a href="{{ asset('storage/payment_proofs/' . $donate->payment_proof) }}"
-                                            target="_blank">
-                                            <img src="{{ asset('storage/payment_proofs/' . $donate->payment_proof) }}"
-                                                alt="Bukti Pembayaran" style="width: 100px; height: auto;">
-                                        </a>
-                                    @else
-                                        <span class="text-muted">Tidak ada</span>
-                                    @endif
-                                </td>
-                                <td>{{ $donate->created_at->format('d M Y H:i') }}</td>
-                                <td>{{ $donate->updated_at->format('d M Y H:i') }}</td>
-                            </tr>
+        <!-- Testimonials Section -->
+        <section id="testimonials" class="testimonials section">
+
+            <!-- Section Title -->
+            <div class="container section-title" data-aos="fade-up">
+                <h2>Testimonials</h2>
+                <p>Apa kata para donatur tentang Yayasan Lorem</p>
+            </div><!-- End Section Title -->
+
+            <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+                <div class="swiper init-swiper">
+                    <script type="application/json" class="swiper-config">
+                        {
+                            "loop": true,
+                            "speed": 600,
+                            "autoplay": {
+                                "delay": 5000
+                            },
+                            "slidesPerView": "auto",
+                            "pagination": {
+                                "el": ".swiper-pagination",
+                                "type": "bullets",
+                                "clickable": true
+                            }
+                        }
+
+                    </script>
+                    <div class="swiper-wrapper">
+
+                        @foreach($donations as $donation)
+                            <div class="swiper-slide">
+                                <div class="testimonial-item">
+                                    <!-- <img src="{{ asset('storage/' . $donation->payment_proof) }}" class="testimonial-img" alt="Photo of {{ $donation->nama }}"> -->
+                                    <h3>{{ $donation->nama }}</h3>
+                                    <h4>Donatur</h4>
+                                    <div class="stars">
+                                        @for($i = 0; $i < 5; $i++)
+                                            <i class="bi bi-star-fill"></i>
+                                        @endfor
+                                    </div>
+                                    <p>
+                                        <i class="bi bi-quote quote-icon-left"></i>
+                                        <span>{{ $donation->donation_message ?? 'Terima kasih telah berdonasi untuk Yayasan Lorem!' }}</span>
+                                        <i class="bi bi-quote quote-icon-right"></i>
+                                    </p>
+                                </div>
+                            </div><!-- End testimonial item -->
                         @endforeach
-                    </tbody>
-                </table>
+
+                    </div><!-- End swiper-wrapper -->
+                    <div class="swiper-pagination"></div>
+                </div><!-- End swiper -->
             </div>
-        </section>
+        </section><!-- End Testimonials Section -->
+
+        </div>
+        <div class="swiper-pagination"></div>
+        </div>
+
+        </div>
+
+        </section><!-- /Testimonials Section -->
 
 
-        <!-- Features Section -->
-        <section id="features" class="features section">
 
-            <div class="container" data-aos="fade-up">
 
-                <!-- Single Feature Tab -->
-                <div class="row gy-4">
-                    <div class="col-lg-8 order-2 order-lg-1" data-aos="fade-up" data-aos-delay="100">
-                        <h3>Rekomendasi Obat</h3>
-                        <p class="fst-italic">
-                            Rekomendasi obat berdasarkan analisis gejala dan preferensi pengguna untuk mengatasi sakit
-                            kepala dengan efektif.
-                        </p>
-                        <ul>
-                            <li><i class="bi bi-check-circle-fill"></i> Rekomendasi obat yang disesuaikan dengan gejala.
-                            </li>
-                            <li><i class="bi bi-check-circle-fill"></i> Integrasi dengan data obat terbaru.</li>
-                            <li><i class="bi bi-check-circle-fill"></i> Rekomendasi berdasarkan feedback pengguna
-                                sebelumnya.</li>
-                        </ul>
-                        <p>
-                            Fitur ini memungkinkan Anda untuk mendapatkan rekomendasi obat yang tepat dan relevan
-                            berdasarkan gejala sakit kepala yang Anda alami.
-                        </p>
-                    </div>
-                    <div class="col-lg-4 order-1 order-lg-2 text-center" data-aos="fade-up" data-aos-delay="200">
-                        <img src="{{ asset('client/img/feature-recommendations.svg') }}"
-                            alt="Rekomendasi Obat" class="img-fluid">
-                    </div>
-                </div>
-                <!-- End Single Feature Tab -->
-
-            </div>
-
-        </section><!-- /Features Section -->
         <section id="donate" class="donate section">
             <div class="container section-title" data-aos="fade-up">
                 <h2>Donasi</h2>

@@ -5,12 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\Donation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-
 class ClientController extends Controller
 {
     //
     public function index(){
-        return view('client.index');
+        $donations = Donation::all();
+        return view('client.index', compact('donations'));
     }
 
     public function storeDonation(Request $request)

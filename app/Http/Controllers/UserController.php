@@ -60,9 +60,18 @@ class UserController extends Controller
         ]);
 
         $user = User::findOrFail($id);
-        $user->update($request->all());
 
-        return redirect()->route('admin.users.index')->with('success', 'User updated successfully.');
+        // Update data pengguna
+        $data = $request->only(['name', 'email']);
+
+        // Jika password diisi, lakukan pembaruan password
+        if ($request->filled('password')) {
+            $data['password'] = bcrypt($request->password);
+        }
+
+        $user->update($data);
+
+        return redirect()->route('users.index')->with('success', 'User updated successfully.');
     }
 
     // Menghapus pengguna

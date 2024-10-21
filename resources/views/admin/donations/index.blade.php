@@ -8,7 +8,20 @@
     href="{{ asset('plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
 <link rel="stylesheet"
     href="{{ asset('plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
-@endsection
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css">
+    <style>
+    .toggle-verification.btn {
+        padding: 4px 10px;
+        font-size: 12px;
+        line-height: 1.5;
+        border-radius: 15px;
+    }
+    .toggle-verification .btn-toggle {
+        width: 40px;
+        height: 20px;
+    }
+</style>
+    @endsection
 
 
 @section('konten')
@@ -41,7 +54,11 @@
                         <td>{{ $donate->donation_amount }}</td>
                         <td>{{ $donate->donation_type }}</td>
                         <td>{{ $donate->donation_message }}</td>
-                        <td>{{ $donate->is_verify }}</td>
+                        <td>
+                            <input type="checkbox" class="toggle-verification" data-id="{{ $donate->id }}"
+                                {{ $donate->is_verify ? 'checked' : '' }} data-toggle="toggle"
+                                data-on="Verified" data-off="Not Verified" data-onstyle="success" data-offstyle="danger">
+                        </td>
                         <td>
                             <img src="{{ asset('storage/' . $donate->payment_proof) }}"
                                 alt="Bukti Pembayaran" style="width:100px; height:auto;">
@@ -105,6 +122,8 @@
 <script src="{{ asset('plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
 <script src="{{ asset('plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
 <script src="{{ asset('plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
+<!-- Bootstrap Toggle JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 
 <script>
     $(function () {
@@ -116,6 +135,27 @@
         }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
     });
 
+    // Handle toggle switch change
+    $('.toggle-verification').change(function () {
+        var is_verify = $(this).prop('checked') ? 1 : 0;
+        var donationId = $(this).data('id');
+
+        $.ajax({
+            url: '{{ route("donations.toggleVerification") }}',
+            type: 'POST',
+            data: {
+                _token: '{{ csrf_token() }}',
+                id: donationId,
+                is_verify: is_verify
+            },
+            success: function (response) {
+                alert(response.message);
+            },
+            error: function (xhr) {
+                alert('Gagal memperbarui status verifikasi.');
+            }
+        });
+    });
 </script>
 
 <script>
