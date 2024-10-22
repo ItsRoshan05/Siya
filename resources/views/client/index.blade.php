@@ -48,7 +48,7 @@
             <a href="index.html" class="logo d-flex align-items-center me-auto me-xl-0">
                 <!-- Uncomment the line below if you also wish to use an image logo -->
                 <!-- <img asset('client/img/logo.png')}}" alt=""> -->
-                <h1 class="sitename">Yayasan <span class="text-black">Lorem</span></h1>
+                <h1 class="sitename">Yayasan <span class="text-black">Al-Rasyid</span></h1>
                 <span>.</span>
             </a>
 
@@ -57,7 +57,7 @@
                     <li><a href="#hero" class="active">Home<br></a></li>
                     <li><a href="#featured-services">Services</a></li>
                     <li><a href="#about">About</a></li>
-                    <li><a href="#features">features</a></li>
+                    <li><a href="#testimonials">Testimonials</a></li>
                     <li><a href="#donate">Donation</a></li>
 
                     <li><a href="#contact">Contact</a></li>
@@ -276,7 +276,7 @@
             <!-- Section Title -->
             <div class="container section-title" data-aos="fade-up">
                 <h2>Testimonials</h2>
-                <p>Apa kata para donatur tentang Yayasan Lorem</p>
+                <p>Apa kata para donatur tentang Yayasan Al-Rasyid</p>
             </div><!-- End Section Title -->
 
             <div class="container" data-aos="fade-up" data-aos-delay="100">
@@ -306,14 +306,12 @@
                                     <!-- <img src="{{ asset('storage/' . $donation->payment_proof) }}" class="testimonial-img" alt="Photo of {{ $donation->nama }}"> -->
                                     <h3>{{ $donation->nama }}</h3>
                                     <h4>Donatur</h4>
-                                    <div class="stars">
-                                        @for($i = 0; $i < 5; $i++)
-                                            <i class="bi bi-star-fill"></i>
-                                        @endfor
-                                    </div>
+                                    <div class="donation-amount text-success fw-bold fs-4 my-2">
+                    Rp{{ number_format($donation->donation_amount, 0, ',', '.') }}
+                </div>
                                     <p>
                                         <i class="bi bi-quote quote-icon-left"></i>
-                                        <span>{{ $donation->donation_message ?? 'Terima kasih telah berdonasi untuk Yayasan Lorem!' }}</span>
+                                        <span>{{ $donation->donation_message ?? 'Terima kasih telah berdonasi untuk Yayasan Al-Rasyid!' }}</span>
                                         <i class="bi bi-quote quote-icon-right"></i>
                                     </p>
                                 </div>
@@ -356,11 +354,10 @@
 
                         <div class="col-md-6">
                             <label for="email" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="email" name="email" placeholder="Jumlah Donasi"
+                            <input type="email" class="form-control" id="email" name="email" placeholder="Masukan Email"
                                 required>
                         </div>
                     </div>
-
 
                     <div class="row mb-3">
                         <div class="col-md-6">
@@ -380,7 +377,6 @@
                             </select>
                         </div>
                     </div>
-
                     <div class="mb-3">
                         <label for="donation-message" class="form-label">Pesan (Opsional)</label>
                         <textarea class="form-control" id="donation-message" name="donation_message" rows="4"
@@ -403,6 +399,7 @@
                 </form>
             </div>
         </section>
+
 
 
 
@@ -504,7 +501,7 @@
                 <div class="row gy-4">
                     <div class="col-lg-4 col-md-6 footer-about">
                         <a href="index.html" class="logo d-flex align-items-center">
-                            <span class="sitename">Yayasan Lorem.</span>
+                            <span class="sitename">Yayasan Al-Rasyid.</span>
                         </a>
                         <div class="footer-contact pt-3">
                             <p>Palabuan</p>
@@ -555,7 +552,7 @@
 
                 <div class="d-flex flex-column align-items-center align-items-lg-start">
                     <div>
-                        © Copyright <strong><span>Yayasan Lorem</span></strong>. All Rights Reserved
+                        © Copyright <strong><span>Yayasan Al-Rasyid</span></strong>. All Rights Reserved
                     </div>
                     <div class="credits">
                         <!-- All the links in the footer should remain intact. -->

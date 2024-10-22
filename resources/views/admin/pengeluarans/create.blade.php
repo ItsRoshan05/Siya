@@ -13,6 +13,15 @@
                 <input type="text" class="form-control" id="nama_pengeluaran" name="nama_pengeluaran" required>
             </div>
             <div class="form-group">
+                <label for="kegiatan_id" class="form-label">Kegiatan</label>
+                <select class="form-select" id="kegiatan_id" name="kegiatan_id" required>
+                    <option value="">Pilih Kegiatan</option>
+                    @foreach($kegiatans as $kegiatan)
+                        <option value="{{ $kegiatan->id }}">{{ $kegiatan->id }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="form-group">
                 <label for="jumlah_pengeluaran">Jumlah Pengeluaran</label>
                 <input type="number" class="form-control" id="jumlah_pengeluaran" name="jumlah_pengeluaran" required>
             </div>

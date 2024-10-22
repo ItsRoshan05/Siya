@@ -10,9 +10,16 @@ class Pengeluaran extends Model
     use HasFactory;
 
     protected $fillable = [
+        'kegiatan_id',
         'nama_pengeluaran',
         'jumlah_pengeluaran',
         'tanggal_pengeluaran',
         'keterangan',
     ];
+
+    public function kegiatan()
+{
+    return $this->belongsTo(Kegiatan::class);
+}
+
 }

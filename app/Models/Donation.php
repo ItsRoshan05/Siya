@@ -19,4 +19,10 @@ class Donation extends Model
         'is_verify',
         'payment_proof',
     ];
+
+    public function kegiatan()
+{
+    return $this->belongsTo(Kegiatan::class);
+}
+
 }

@@ -1,14 +1,10 @@
 <!-- Main Sidebar Container -->
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <!-- <a href="/" class="brand-link">
-      <img src="{{ asset('img/deni.png') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8" >
-      <span class="brand-text font-weight-light"> Yayasan Lorem </span>
-    </a> -->
-    <a href="index3.html" class="brand-link">
+    <a href="/admin" class="brand-link">
         <img src="{{ asset('dist/img/AdminLTELogo.png') }}" alt="AdminLTE Logo"
             class="brand-image img-circle elevation-3" style="opacity: .8">
-        <span class="brand-text font-weight-light">AdminLTE 3</span>
+        <span class="brand-text font-weight-light">Yayasan Al-Rasyid</span>
     </a>
 
     <!-- Sidebar -->
@@ -38,12 +34,7 @@
         <!-- Sidebar Menu -->
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                <li class="nav-item">
-                    <a href="./dashboard.html" class="nav-link">
-                        <i class="nav-icon fas fa-tachometer-alt"></i>
-                        <p>Dashboard</p>
-                    </a>
-                </li>
+                <!-- Master Data Section -->
                 <li class="nav-item">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-database"></i>
@@ -54,30 +45,84 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{route('users.index')}}" class="nav-link">
+                            <a href="{{ route('users.index') }}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>User</p>
+                                <p>Data Pegawai</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('donaturs.index') }}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Data Donatur</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('kegiatans.index') }}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Data Kegiatan</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <!-- Kegiatan Section -->
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-tasks"></i>
+                        <p>
+                            Kegiatan
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Kelola Kegiatan</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ route('donations.index') }}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Data Donasi</p>
+                                <p>Donasi</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{route('pengeluarans.index')}}" class="nav-link">
+                            <a href="{{ route('pengeluarans.index') }}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Data Pengeluaran</p>
+                                <p>Pengeluaran</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <!-- Laporan Section -->
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-file-alt"></i>
+                        <p>
+                            Laporan
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Pendapatan</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('laporan.pengeluaran') }}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Pengeluaran</p>
                             </a>
                         </li>
                     </ul>
                 </li>
             </ul>
-
         </nav>
         <!-- /.sidebar-menu -->
     </div>
     <!-- /.sidebar -->
-</aside>
 </aside>

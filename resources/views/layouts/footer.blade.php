@@ -15,7 +15,7 @@
       
     </div>
     <!-- Default to the left -->
-     Yayasan Lorem
+    Yayasan Al-Rasyid
   </footer>
 </div>
 <!-- ./wrapper -->

@@ -5,7 +5,7 @@
 @endsection
 
 @section('konten')
-<h1 class="mb-4">Selamat Datang di Dashboard Yayasan Lorem</h1>
+<h1 class="mb-4">Selamat Datang di Dashboard Yayasan Al-Rasyid</h1>
 
 <div class="row">
     <!-- Card untuk Total Donasi -->

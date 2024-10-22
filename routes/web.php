@@ -4,6 +4,8 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\DashminController;
 use App\Http\Controllers\DonationController;
+use App\Http\Controllers\DonaturController;
+use App\Http\Controllers\KegiatanController;
 use App\Http\Controllers\PengeluaranController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -39,7 +41,13 @@ Route::prefix('admin')->middleware('auth')->group(function (){
     Route::resource('donations',DonationController::class);
     Route::resource('pengeluarans', PengeluaranController::class);
     Route::post('donations/toggle-verification', [DonationController::class, 'toggleVerification'])->name('donations.toggleVerification');
-
+    Route::resource('kegiatans', KegiatanController::class);
+    Route::get('/testing',[DashminController::class,'testing']);
+    Route::resource('/donaturs', DonaturController::class);
+    Route::get('/laporan-pengeluaran', [PengeluaranController::class, 'laporanPengeluaran'])->name('laporan.pengeluaran');
+    Route::get('/laporan-pengeluaran/export-pdf', [PengeluaranController::class, 'exportPDF'])->name('laporan.pengeluaran.pdf');
+    Route::get('/laporan-pengeluaran/export-excel', [PengeluaranController::class, 'exportExcel'])->name('laporan.pengeluaran.excel');
+    
 });
 
 

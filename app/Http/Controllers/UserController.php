@@ -9,7 +9,7 @@ class UserController extends Controller
     // Menampilkan daftar pengguna
     public function index()
     {
-        $users = User::all();
+        $users = User::where('jabatan', '!=', 'donatur')->get();
         return view('admin.users.index', compact('users'));
     }
 

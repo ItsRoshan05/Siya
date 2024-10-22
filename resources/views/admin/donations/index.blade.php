@@ -8,26 +8,29 @@
     href="{{ asset('plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
 <link rel="stylesheet"
     href="{{ asset('plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css">
-    <style>
+<link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css">
+<style>
     .toggle-verification.btn {
         padding: 4px 10px;
         font-size: 12px;
         line-height: 1.5;
         border-radius: 15px;
     }
+
     .toggle-verification .btn-toggle {
         width: 40px;
         height: 20px;
     }
+
 </style>
-    @endsection
+@endsection
 
 
 @section('konten')
 <div class="card">
     <div class="card-header">
-        <h3 class="card-title">Data User</h3>
+        <h3 class="card-title">Data Donasi</h3>
     </div>
     <!-- /.card-header -->
     <div class="card-body">
@@ -56,8 +59,9 @@
                         <td>{{ $donate->donation_message }}</td>
                         <td>
                             <input type="checkbox" class="toggle-verification" data-id="{{ $donate->id }}"
-                                {{ $donate->is_verify ? 'checked' : '' }} data-toggle="toggle"
-                                data-on="Verified" data-off="Not Verified" data-onstyle="success" data-offstyle="danger">
+                                {{ $donate->is_verify ? 'checked' : '' }}
+                                data-toggle="toggle" data-on="Verified" data-off="Not Verified" data-onstyle="success"
+                                data-offstyle="danger">
                         </td>
                         <td>
                             <img src="{{ asset('storage/' . $donate->payment_proof) }}"
@@ -66,21 +70,23 @@
                         <td>{{ $donate->created_at }}</td>
                         <td>{{ $donate->updated_at }}</td>
                         <td>
-                            <!-- Tombol Show -->
-                            <a href="{{ route('donations.show', $donate->id) }}"
-                                class="btn btn-outline-info">Show</a>
 
                             <!-- Tombol Edit -->
                             <a href="{{ route('donations.edit', $donate->id) }}"
-                                class="btn btn-outline-primary">Edit</a>
+                                class="btn btn-outline-primary">
+                                <i class="fas fa-edit"></i>
+                            </a>
 
                             <!-- Tombol Hapus -->
                             <form action="{{ route('donations.destroy', $donate->id) }}"
                                 method="POST" style="display:inline-block;" onsubmit="return confirmDelete()">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-outline-danger">Hapus</button>
+                                <button type="submit" class="btn btn-outline-danger">
+                                    <i class="fas fa-trash-alt"></i>
+                                </button>
                             </form>
+
                         </td>
                     </tr>
                 @endforeach
@@ -156,6 +162,7 @@
             }
         });
     });
+
 </script>
 
 <script>

@@ -22,7 +22,7 @@ class UserSeeder extends Seeder
                 'email' => 'john.doe@example.com',
                 'jabatan' => 'Ketua Yayasan',
                 'email_verified_at' => now(),
-                'password' => Hash::make('admin123'), // Ganti dengan password yang diinginkan
+                'password' => Hash::make('admin123'), 
                 'remember_token' => Str::random(10),
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -32,12 +32,12 @@ class UserSeeder extends Seeder
                 'email' => 'jane.smith@example.com',
                 'jabatan' => 'Admin',
                 'email_verified_at' => now(),
-                'password' => Hash::make('admin123'), // Ganti dengan password yang diinginkan
+                'password' => Hash::make('admin123'), 
                 'remember_token' => Str::random(10),
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
-            // Tambahkan pengguna lain di sini jika diperlukan
+         
         ]);
     }
 }
