@@ -22,7 +22,6 @@
         <table id="example1" class="table table-bordered table-striped">
             <thead>
                 <tr>
-                    <th>Nama Pengeluaran</th>
                     <th>Nama Kegiatan</th>
                     <th>Jumlah Pengeluaran</th>
                     <th>Tanggal Pengeluaran</th>
@@ -33,7 +32,6 @@
             <tbody>
                 @foreach($pengeluarans as $pengeluaran)
                     <tr>
-                        <td>{{ $pengeluaran->nama_pengeluaran }}</td>
                         <td>{{ $pengeluaran->kegiatan ? $pengeluaran->kegiatan->nama_kegiatan : 'Tidak ada kegiatan terkait' }}</td>
                         <td>{{ $pengeluaran->jumlah_pengeluaran }}</td>
                         <td>{{ $pengeluaran->tanggal_pengeluaran }}</td>
@@ -62,7 +60,6 @@
             </tbody>
             <tfoot>
                 <tr>
-                    <th>Nama Pengeluaran</th>
                     <th>Nama Kegiatan</th>
                     <th>Jumlah Pengeluaran</th>
                     <th>Tanggal Pengeluaran</th>

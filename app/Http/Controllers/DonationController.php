@@ -107,4 +107,8 @@ class DonationController extends Controller
     return response()->json(['message' => 'Status verifikasi berhasil diperbarui.']);
     }
 
+    public function laporanDonasi(){
+        return view('admin.donations.laporan_donation');
+    }
+    
 }
