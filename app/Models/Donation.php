@@ -18,6 +18,7 @@ class Donation extends Model
         'anonymous',
         'is_verify',
         'payment_proof',
+        'snap_token',
     ];
 
     public function kegiatan()

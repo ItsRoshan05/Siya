@@ -2,19 +2,27 @@
 namespace App\Http\Controllers;
 
 use App\Models\Donation;
-use App\Models\Kegiatan; // Import Kegiatan model
+use App\Models\Kegiatan; 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
-
+use App\Models\Pengeluaran;
 class ClientController extends Controller
 {
     public function index() {
         $donations = Donation::where('is_verify', true)->get();
+        $totalDonasi = Donation::where('is_verify', true)->sum('donation_amount');
+        
         $kegiatans = Kegiatan::all(); // Fetch all kegiatan
-        return view('client.index', compact('donations', 'kegiatans'));
+        // Menghitung total pengeluaran
+        $totalPengeluaran = Pengeluaran::sum('jumlah_pengeluaran');
+    
+        // Menghitung saldo kas
+        $saldoKas = $totalDonasi - $totalPengeluaran;
+            
+        return view('client.index', compact('donations', 'kegiatans','saldoKas'));
     }
     
     public function storeDonation(Request $request)
@@ -67,13 +75,52 @@ class ClientController extends Controller
             ]);
         }
     
-        // Redirect ke halaman terima kasih
+        // Set your Merchant Server Key
+        \Midtrans\Config::$serverKey = config('midtrans.serverkey');
+        // Set to Development/Sandbox Environment (default). Set to true for Production Environment (accept real transaction).
+        \Midtrans\Config::$isProduction = false;
+        // Set sanitization on (default)
+        \Midtrans\Config::$isSanitized = true;
+        // Set 3DS transaction for credit card to true
+        \Midtrans\Config::$is3ds = true;
+
+        
+        $params = array(
+            'transaction_details' => array(
+                'order_id' => 'DONATION-' . $donation->id . '-' . time(),
+                'gross_amount' => $request->donation_amount,
+            ),
+            'costumer_details' => array(
+                'first_name' => $request->nama,
+                'email' => $request->email,
+            ),
+        );
+        
+        $snapToken = \Midtrans\Snap::getSnapToken($params);
+        $donation->snap_token = $snapToken;
+        $donation->save();
+        
         return redirect()->route('thank-you');
     }
     
     // Fungsi untuk menampilkan halaman terima kasih
-    public function thankYou()
+    public function thankYou(Request $request)
     {
-        return view('client.thank-you');
+        // Ambil donasi terakhir
+        $donation = Donation::latest()->first();
+    
+        // Pastikan data donasi ditemukan
+        if (!$donation) {
+            return redirect()->route('home')->with('error', 'Tidak ada donasi ditemukan.');
+        }
+    
+        // Kirim data ke view
+        return view('client.thank-you', [
+            'snapToken' => $donation->snap_token,
+            'name' => $donation->nama,
+            'email' => $donation->email,
+            'amount' => $donation->donation_amount,
+        ]);
     }
+    
 }

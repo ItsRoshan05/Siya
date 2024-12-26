@@ -71,7 +71,6 @@
     </header>
 
     <main class="main">
-
         <!-- Hero Section -->
         <section id="hero" class="hero section">
             <div class="container d-flex flex-column justify-content-center align-items-center text-center position-relative"
@@ -391,7 +390,7 @@
                     <div class="mb-3">
                         <label for="payment-proof" class="form-label">Unggah Bukti Pembayaran</label>
                         <input type="file" class="form-control" id="payment-proof" name="payment_proof"
-                            accept="image/*,application/pdf" required>
+                            accept="image/*,application/pdf">
                         <small class="form-text text-muted">Format yang didukung: JPG, PNG, PDF (maksimal 2 MB)</small>
                     </div>
 

@@ -56,12 +56,7 @@
                                 <p>Data Donatur</p>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a href="{{ route('kegiatans.index') }}" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Data Kegiatan</p>
-                            </a>
-                        </li>
+
                     </ul>
                 </li>
 
@@ -75,8 +70,8 @@
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
+                    <li class="nav-item">
+                            <a href="{{ route('kegiatans.index') }}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Kelola Kegiatan</p>
                             </a>
@@ -84,13 +79,13 @@
                         <li class="nav-item">
                             <a href="{{ route('donations.index') }}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Donasi</p>
+                                <p>Kelola Donasi</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ route('pengeluarans.index') }}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Pengeluaran</p>
+                                <p>Kelola Pengeluaran</p>
                             </a>
                         </li>
                     </ul>
