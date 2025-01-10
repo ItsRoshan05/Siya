@@ -122,6 +122,14 @@ public function exportPDF(Request $request)
     // Export to Excel
     public function exportExcel(Request $request)
     {
+        // Validasi tanggal
+        $request->validate([
+            'start_date' => 'required|date',
+            'end_date' => 'required|date',
+        ]);
+    
+        // Memanggil export
         return Excel::download(new PengeluaranExport($request->start_date, $request->end_date), 'laporan_pengeluaran.xlsx');
     }
+    
 }

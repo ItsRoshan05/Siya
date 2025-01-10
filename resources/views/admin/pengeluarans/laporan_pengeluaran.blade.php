@@ -35,7 +35,7 @@
 
         <div class="mt-4">
             <a href="{{ route('laporan.pengeluaran.pdf', ['start_date' => request('start_date'), 'end_date' => request('end_date')]) }}" class="btn btn-danger">Export PDF</a>
-            <a href="{{ route('laporan.pengeluaran.excel', ['start_date' => request('start_date'), 'end_date' => request('end_date')]) }}" class="btn btn-success">Export Excel</a>
+            <!-- <a href="{{ route('laporan.pengeluaran.excel', ['start_date' => request('start_date'), 'end_date' => request('end_date')]) }}" class="btn btn-success">Export Excel</a> -->
         </div>
     @else
         <p class="mt-4">Tidak ada data pengeluaran pada rentang tanggal yang dipilih.</p>

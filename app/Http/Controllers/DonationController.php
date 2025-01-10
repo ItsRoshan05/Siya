@@ -107,8 +107,50 @@ class DonationController extends Controller
     return response()->json(['message' => 'Status verifikasi berhasil diperbarui.']);
     }
 
-    public function laporanDonasi(){
-        return view('admin.donations.laporan_donation');
+    public function laporanDonasi(Request $request){
+       // Cek apakah tanggal sudah dipilih
+       if ($request->has('start_date') && $request->has('end_date')) {
+        // Validasi input tanggal
+        $request->validate([
+            'start_date' => 'required|date',
+            'end_date' => 'required|date|after_or_equal:start_date',
+        ]);
+
+        // Ambil data pengeluaran berdasarkan rentang tanggal
+        $donations = Donation::whereBetween('created_at', [$request->start_date, $request->end_date])->get();
+    } else {
+        $donations = collect(); 
+    }        
+        return view('admin.donations.laporan_donation', compact('donations'));
+    }
+
+    public function exportPDF(Request $request)
+{
+    $donations = Donation::with('kegiatan')
+        ->whereBetween('created_at', [$request->start_date, $request->end_date])
+        ->get();
+
+    // Calculate total amount
+    $totaldonasi = $donations->sum('donation_amount');
+
+    $pdf = \PDF::loadView('admin.donations.export_pdf', compact('donations', 'totaldonasi'))
+        ->setPaper('A4', 'landscape');
+
+    return $pdf->download('Laporan_donasi.pdf');
+}
+
+
+    // Export to Excel
+    public function exportExcel(Request $request)
+    {
+        // Validasi tanggal
+        $request->validate([
+            'start_date' => 'required|date',
+            'end_date' => 'required|date',
+        ]);
+    
+        // Memanggil export
+        return Excel::download(new PengeluaranExport($request->start_date, $request->end_date), 'laporan_pengeluaran.xlsx');
     }
     
 }

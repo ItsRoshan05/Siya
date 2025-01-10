@@ -69,7 +69,7 @@ class ClientController extends Controller
 
         try {
             $whatsappResponse = Http::withHeaders([
-                'Authorization' => '',
+                'Authorization' => 'SqFR46v45kVczgLegs2Z',
             ])->post('https://api.fonnte.com/send', [
                 'target' => $request->phone,
                 'message' => "Halo {$request->nama}, terima kasih telah berdonasi sebesar Rp" . number_format($request->donation_amount, 0, ',', '.') . ".",

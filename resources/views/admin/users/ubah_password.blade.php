@@ -1,6 +1,6 @@
 @extends('layouts.template')
 
-@section('konten')
+@secti]on('konten')
 <div class="container">
     <h2>Ganti Password</h2>
 

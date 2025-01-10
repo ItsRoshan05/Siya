@@ -46,7 +46,7 @@
             <div class="mt-4">
                 <p class="thank-you-message"><strong>Nama:</strong> {{ $name }}</p>
                 <p class="thank-you-message"><strong>Email:</strong> {{ $email }}</p>
-                <p class="thank-you-message"><strong>Jumlah Donasi:</strong> Rp {{ $amount }}</p>
+                <p class="thank-you-message"><strong>Jumlah Donasi:</strong> Rp {{ $amount }}</p>   
             </div>
 
             <button id="pay-button" class="btn btn-pay btn-lg mt-3">Bayar Sekarang</button>

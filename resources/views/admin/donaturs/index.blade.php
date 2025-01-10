@@ -11,7 +11,7 @@
 <div class="card">
     <div class="card-header">
         <h3 class="card-title">Data Donatur</h3>
-        <a href="{{ route('donaturs.create') }}" class="btn btn-primary float-right">Tambah Donatur</a>
+        <!-- <a href="{{ route('donaturs.create') }}" class="btn btn-primary float-right">Tambah Donatur</a> -->
     </div>
     <!-- /.card-header -->
     <div class="card-body">

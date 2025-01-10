@@ -1,7 +1,7 @@
 <?php
 namespace App\Exports;
 
-use App\Models\Pengeluaran;
+use App\Models\Donation;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 
@@ -18,15 +18,15 @@ class PengeluaranExport implements FromCollection, WithHeadings
 
     public function collection()
     {
-        return Pengeluaran::whereBetween('tanggal_pengeluaran', [$this->startDate, $this->endDate])
-            ->select('id', 'nama_pengeluaran', 'jumlah_pengeluaran', 'tanggal_pengeluaran', 'keterangan')
+        return Donation::whereBetween('tanggal_pengeluaran', [$this->startDate, $this->endDate])
+            ->select('id', 'nama', 'email', 'phone', 'donation_amount')
             ->get();
     }
 
     public function headings(): array
     {
         return [
-            'ID', 'Nama Pengeluaran', 'Jumlah Pengeluaran', 'Tanggal Pengeluaran', 'Keterangan'
+            'ID', 'Nama', 'Email', 'Phone', 'Donasi'
         ];
     }
 }

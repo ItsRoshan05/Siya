@@ -49,8 +49,8 @@ Route::prefix('admin')->middleware('auth')->group(function (){
     Route::get('/laporan-pengeluaran/export-pdf', [PengeluaranController::class, 'exportPDF'])->name('laporan.pengeluaran.pdf');
     Route::get('/laporan-pengeluaran/export-excel', [PengeluaranController::class, 'exportExcel'])->name('laporan.pengeluaran.excel');
     Route::get('/laporan-donasi', [DonationController::class, 'laporanDonasi'])->name('laporan.donasi');
-    Route::get('/laporan-donasi/export-pdf', [PengeluaranController::class, 'exportPDF'])->name('laporan.donasi.pdf');
-    Route::get('/laporan-donasi/export-excel', [PengeluaranController::class, 'exportExcel'])->name('laporan.donasi.excel');
+    Route::get('/laporan-donasi/export-pdf', [DonationController::class, 'exportPDF'])->name('laporan.donasi.pdf');
+    Route::get('/laporan-donasi/export-excel', [DonationController::class, 'exportExcel'])->name('laporan.donasi.excel');
     Route::get('/profile/change-password', [UserController::class, 'ubahPasswordForm'])->name('password.change');
     Route::put('/profile/password', [UserController::class, 'updatePassword'])->name('password.update');
 });
