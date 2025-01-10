@@ -306,8 +306,8 @@
                                     <h3>{{ $donation->nama }}</h3>
                                     <h4>Donatur</h4>
                                     <div class="donation-amount text-success fw-bold fs-4 my-2">
-                    Rp{{ number_format($donation->donation_amount, 0, ',', '.') }}
-                </div>
+                                        Rp{{ number_format($donation->donation_amount, 0, ',', '.') }}
+                                    </div>
                                     <p>
                                         <i class="bi bi-quote quote-icon-left"></i>
                                         <span>{{ $donation->donation_message ?? 'Terima kasih telah berdonasi untuk Yayasan Al-Rasyid!' }}</span>
@@ -342,8 +342,7 @@
             </div>
 
             <div class="container" data-aos="fade-up" data-aos-delay="200">
-                <form action="{{ route('donation.store') }}" method="POST" class="donation-form"
-                    enctype="multipart/form-data">
+                <form action="{{ route('donation.store') }}" method="POST" class="donation-form">
                     @csrf
                     <div class="row mb-3">
                         <div class="col-md-6">
@@ -360,22 +359,17 @@
 
                     <div class="row mb-3">
                         <div class="col-md-6">
+                            <label for="phone" class="form-label">Nomor Telepon</label>
+                            <input type="text" class="form-control" id="phone" name="phone"
+                                placeholder="Masukkan Nomor Telepon" required>
+                        </div>
+                        <div class="col-md-6">
                             <label for="donation-amount" class="form-label">Jumlah Donasi (Rp)</label>
                             <input type="number" class="form-control" id="donation-amount" name="donation_amount"
                                 placeholder="Jumlah Donasi" required>
                         </div>
-                        <div class="col-md-6">
-                            <label for="donation-type" class="form-label">Metode Pembayaran</label>
-                            <select class="form-select" id="donation-type" name="donation_type" required>
-                                <option value="">Pilih Metode Pembayaran</option>
-                                <option value="bank_transfer">Transfer Bank</option>
-                                <option value="credit_card">Kartu Kredit</option>
-                                <option value="paypal">PayPal</option>
-                                <option value="gopay">GoPay</option>
-                                <option value="ovo">OVO</option>
-                            </select>
-                        </div>
                     </div>
+
                     <div class="mb-3">
                         <label for="donation-message" class="form-label">Pesan (Opsional)</label>
                         <textarea class="form-control" id="donation-message" name="donation_message" rows="4"
@@ -387,17 +381,11 @@
                         <label class="form-check-label" for="anonymous-donation">Donasi secara anonim</label>
                     </div>
 
-                    <div class="mb-3">
-                        <label for="payment-proof" class="form-label">Unggah Bukti Pembayaran</label>
-                        <input type="file" class="form-control" id="payment-proof" name="payment_proof"
-                            accept="image/*,application/pdf">
-                        <small class="form-text text-muted">Format yang didukung: JPG, PNG, PDF (maksimal 2 MB)</small>
-                    </div>
-
                     <button type="submit" class="btn btn-primary">Kirim Donasi</button>
                 </form>
             </div>
         </section>
+
 
 
 

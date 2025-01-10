@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 use App\Models\Donation;
 use App\Models\Kegiatan; 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use App\Models\User;
 use App\Models\Pengeluaran;
+use Illuminate\Support\Facades\Http;
+
 class ClientController extends Controller
 {
     public function index() {
@@ -31,89 +33,88 @@ class ClientController extends Controller
         $request->validate([
             'nama' => 'required|string|max:255',
             'email' => 'required|email|max:255',
-            'donation_amount' => 'required|numeric|min:0',
-            'donation_type' => 'required|string',
-            'payment_proof' => 'required|file|mimes:jpg,png,pdf|max:2048',
+            'donation_amount' => 'required|numeric|min:1',
+            'phone' => 'required|', // Format nomor telepon
         ]);
-    
-        // Simpan file bukti pembayaran
-        $paymentProofPath = $request->file('payment_proof')->store('payment_proofs', 'public');
-    
+
         // Simpan data donasi ke database
         $donation = Donation::create([
             'nama' => $request->nama,
             'email' => $request->email,
             'donation_amount' => $request->donation_amount,
-            'donation_type' => $request->donation_type,
             'donation_message' => $request->donation_message,
             'anonymous' => $request->has('anonymous'),
-            'payment_proof' => $paymentProofPath,
+            'phone' => $request->phone,
         ]);
-    
-        // Cek jika email sudah terdaftar
-        if (User::where('email', $request->email)->exists()) {
-            // Jika email sudah terdaftar, set pesan terima kasih
-            session(['new_account' => false, 'message' => 'Terima kasih sudah berdonasi lagi!']);
-        } else {
-            // Buat password acak
+
+        // Buat akun jika email belum terdaftar
+        if (!User::where('email', $request->email)->exists()) {
             $randomPassword = Str::random(8);
-    
-            // Buat akun baru
             $user = User::create([
                 'name' => $request->nama,
                 'email' => $request->email,
                 'password' => Hash::make($randomPassword),
-                'jabatan' => 'donatur', // Set jabatan sebagai 'donatur'
+                'jabatan' => 'donatur',
             ]);
-    
-            // Simpan informasi akun di session untuk ditampilkan di view
+
             session([
                 'new_account' => true,
                 'username' => $user->email,
                 'randomPassword' => $randomPassword,
                 'message' => 'Akun baru Anda telah dibuat!',
             ]);
+        } else {
+            session(['new_account' => false, 'message' => 'Terima kasih sudah berdonasi lagi!']);
         }
-    
-        // Set your Merchant Server Key
+
+        try {
+            $whatsappResponse = Http::withHeaders([
+                'Authorization' => '',
+            ])->post('https://api.fonnte.com/send', [
+                'target' => $request->phone,
+                'message' => "Halo {$request->nama}, terima kasih telah berdonasi sebesar Rp" . number_format($request->donation_amount, 0, ',', '.') . ".",
+            ]);
+
+            if ($whatsappResponse->failed()) {
+                Log::error('Gagal mengirim WhatsApp: ' . $whatsappResponse->body());
+            }
+        } catch (\Exception $e) {
+            Log::error('Exception saat mengirim WhatsApp: ' . $e->getMessage());
+        }
+
+        // Midtrans Configuration
         \Midtrans\Config::$serverKey = config('midtrans.serverkey');
-        // Set to Development/Sandbox Environment (default). Set to true for Production Environment (accept real transaction).
         \Midtrans\Config::$isProduction = false;
-        // Set sanitization on (default)
         \Midtrans\Config::$isSanitized = true;
-        // Set 3DS transaction for credit card to true
         \Midtrans\Config::$is3ds = true;
 
-        
-        $params = array(
-            'transaction_details' => array(
+        $params = [
+            'transaction_details' => [
                 'order_id' => 'DONATION-' . $donation->id . '-' . time(),
                 'gross_amount' => $request->donation_amount,
-            ),
-            'costumer_details' => array(
+            ],
+            'customer_details' => [
                 'first_name' => $request->nama,
                 'email' => $request->email,
-            ),
-        );
-        
+            ],
+        ];
+
         $snapToken = \Midtrans\Snap::getSnapToken($params);
         $donation->snap_token = $snapToken;
         $donation->save();
-        
-        return redirect()->route('thank-you');
+
+        return redirect()->route('thank-you', ['order_id' => $donation->id]);
     }
-    
-    // Fungsi untuk menampilkan halaman terima kasih
+
     public function thankYou(Request $request)
     {
-        // Ambil donasi terakhir
-        $donation = Donation::latest()->first();
-    
-        // Pastikan data donasi ditemukan
+        // Ambil donasi berdasarkan ID
+        $donation = Donation::find($request->order_id);
+
         if (!$donation) {
-            return redirect()->route('home')->with('error', 'Tidak ada donasi ditemukan.');
+            return redirect('/')->with('error', 'Donasi tidak ditemukan.');
         }
-    
+
         // Kirim data ke view
         return view('client.thank-you', [
             'snapToken' => $donation->snap_token,

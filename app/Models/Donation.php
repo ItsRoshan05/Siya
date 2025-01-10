@@ -12,12 +12,11 @@ class Donation extends Model
     protected $fillable = [
         'nama',
         'email',
+        'phone',
         'donation_amount',
-        'donation_type',
         'donation_message',
         'anonymous',
         'is_verify',
-        'payment_proof',
         'snap_token',
     ];
 

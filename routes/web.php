@@ -59,4 +59,5 @@ Route::prefix('admin')->middleware('auth')->group(function (){
 // client Route
 Route::get('/',[ClientController::class,'index']);
 Route::post('/donation', [ClientController::class, 'storeDonation'])->name('donation.store');
-Route::get('/thank-you', [ClientController::class, 'thankYou'])->name('thank-you');
+Route::get('/thank-you/{order_id}', [ClientController::class, 'thankYou'])->name('thank-you');
+

@@ -64,7 +64,8 @@
                 onSuccess: function(result) {
                     alert('Pembayaran berhasil!');
                     console.log(result);
-                    // window.location.href = '{{ route('')}}';
+                    window.location.href = '{{ url('/') }}';
+
                 },
                 onPending: function(result) {
                     alert('Pembayaran tertunda. Silakan lanjutkan nanti.');
