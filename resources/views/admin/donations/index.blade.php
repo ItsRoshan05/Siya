@@ -40,10 +40,8 @@
                     <th>Nama</th>
                     <th>Email</th>
                     <th>Jumlah Donasi</th>
-                    <th>Tipe Pembayaran</th>
                     <th>Pesan Donasi</th>
                     <th>Verify</th>
-                    <th>Bukti Pembayaran</th>
                     <th>Tanggal Masuk Data</th>
                     <th>Tanggal Update Data</th>
                     <th>Aksi</th>
@@ -55,17 +53,12 @@
                         <td>{{ $donate->nama }}</td>
                         <td>{{ $donate->email }}</td>
                         <td>{{ $donate->donation_amount }}</td>
-                        <td>{{ $donate->donation_type }}</td>
                         <td>{{ $donate->donation_message }}</td>
                         <td>
                             <input type="checkbox" class="toggle-verification" data-id="{{ $donate->id }}"
                                 {{ $donate->is_verify ? 'checked' : '' }}
                                 data-toggle="toggle" data-on="Verified" data-off="Not Verified" data-onstyle="success"
                                 data-offstyle="danger">
-                        </td>
-                        <td>
-                            <img src="{{ asset('storage/' . $donate->payment_proof) }}"
-                                alt="Bukti Pembayaran" style="width:100px; height:auto;">
                         </td>
                         <td>{{ $donate->created_at }}</td>
                         <td>{{ $donate->updated_at }}</td>
@@ -96,10 +89,8 @@
                     <th>Nama</th>
                     <th>Email</th>
                     <th>Jumlah Donasi</th>
-                    <th>Tipe Pembayaran</th>
                     <th>Pesan Donasi</th>
                     <th>Verify</th>
-                    <th>Bukti Pembayaran</th>
                     <th>Tanggal Masuk Data</th>
                     <th>Tanggal Update Data</th>
                     <th>Aksi</th>

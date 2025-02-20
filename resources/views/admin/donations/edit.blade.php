@@ -28,21 +28,8 @@
             </div>
 
             <div class="form-group">
-                <label for="donation_type">Tipe Pembayaran:</label>
-                <input type="text" class="form-control" id="donation_type" name="donation_type" value="{{ $donation->donation_type }}" required>
-            </div>
-
-            <div class="form-group">
                 <label for="donation_message">Pesan Donasi:</label>
                 <textarea class="form-control" id="donation_message" name="donation_message">{{ $donation->donation_message }}</textarea>
-            </div>
-
-            <div class="form-group">
-                <label for="payment_proof">Bukti Pembayaran:</label>
-                <input type="file" class="form-control" id="payment_proof" name="payment_proof">
-                @if ($donation->payment_proof)
-                    <img src="{{ asset('storage/' . $donation->payment_proof) }}" alt="Bukti Pembayaran" style="width:100px; height:auto;">
-                @endif
             </div>
 
             <div class="form-group">

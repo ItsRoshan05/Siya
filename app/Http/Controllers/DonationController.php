@@ -65,24 +65,12 @@ class DonationController extends Controller
             'nama' => 'required|string|max:255',
             'email' => 'required|email',
             'donation_amount' => 'required|numeric',
-            'donation_type' => 'required|string',
-            'payment_proof' => 'file|max:2048|mimes:jpg,png,pdf',
         ]);
 
         $donation->nama = $request->nama;
         $donation->email = $request->email;
-        $donation->donation_amount = $request->donation_amount;
-        $donation->donation_type = $request->donation_type;
         $donation->donation_message = $request->donation_message;
         $donation->anonymous = $request->has('anonymous');
-
-        // Update bukti pembayaran jika ada file baru
-        if ($request->hasFile('payment_proof')) {
-            // Hapus file lama
-            Storage::disk('public')->delete($donation->payment_proof);
-            // Simpan file baru
-            $donation->payment_proof = $request->file('payment_proof')->store('payment_proofs', 'public');
-        }
 
         $donation->save();
 
