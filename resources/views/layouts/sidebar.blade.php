@@ -1,4 +1,3 @@
-<!-- Main Sidebar Container -->
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="/admin" class="brand-link">
@@ -35,6 +34,7 @@
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <!-- Master Data Section -->
+                @if(auth()->user()->jabatan !== 'user')
                 <li class="nav-item">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-database"></i>
@@ -56,11 +56,12 @@
                                 <p>Data Donatur</p>
                             </a>
                         </li>
-
                     </ul>
                 </li>
+                @endif
 
                 <!-- Kegiatan Section -->
+                @if(auth()->user()->jabatan !== 'user')
                 <li class="nav-item">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-tasks"></i>
@@ -70,7 +71,7 @@
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
-                    <li class="nav-item">
+                        <li class="nav-item">
                             <a href="{{ route('kegiatans.index') }}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Kelola Kegiatan</p>
@@ -90,6 +91,7 @@
                         </li>
                     </ul>
                 </li>
+                @endif
 
                 <!-- Laporan Section -->
                 <li class="nav-item">

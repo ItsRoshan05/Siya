@@ -34,7 +34,7 @@ class ClientController extends Controller
             'nama' => 'required|string|max:255',
             'email' => 'required|email|max:255',
             'donation_amount' => 'required|numeric|min:1',
-            'phone' => 'required|', // Format nomor telepon
+            'phone' => 'required', // Format nomor telepon
         ]);
 
         // Simpan data donasi ke database
@@ -123,5 +123,6 @@ class ClientController extends Controller
             'amount' => $donation->donation_amount,
         ]);
     }
+    
     
 }

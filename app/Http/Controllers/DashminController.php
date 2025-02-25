@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Donation;
 use App\Models\Kegiatan;
 use App\Models\Pengeluaran;
+use Carbon\Carbon;
+
 class DashminController extends Controller
 {
     //
@@ -20,8 +22,38 @@ class DashminController extends Controller
         // Menghitung saldo kas
         $saldoKas = $totalDonasi - $totalPengeluaran;
     
+        // Data untuk chart (12 bulan terakhir)
+        $chartLabels = [];
+        $chartDonasi = [];
+        $chartPengeluaran = [];
+    
+        for ($i = 11; $i >= 0; $i--) {
+            $month = Carbon::now()->subMonths($i);
+            $chartLabels[] = $month->format('M Y');
+    
+            // Hitung total donasi terverifikasi per bulan
+            $totalDonasiBulan = Donation::where('is_verify', true)
+                ->whereYear('created_at', $month->year)
+                ->whereMonth('created_at', $month->month)
+                ->sum('donation_amount');
+            $chartDonasi[] = $totalDonasiBulan;
+    
+            // Hitung total pengeluaran per bulan
+            $totalPengeluaranBulan = Pengeluaran::whereYear('created_at', $month->year)
+                ->whereMonth('created_at', $month->month)
+                ->sum('jumlah_pengeluaran');
+            $chartPengeluaran[] = $totalPengeluaranBulan;
+        }
+    
         // Mengirim data ke view
-        return view('admin.index', compact('totalDonasi', 'totalPengeluaran', 'saldoKas'));
+        return view('admin.index', compact(
+            'totalDonasi',
+            'totalPengeluaran',
+            'saldoKas',
+            'chartLabels',
+            'chartDonasi',
+            'chartPengeluaran'
+        ));
     }
 
     public function testing(){
