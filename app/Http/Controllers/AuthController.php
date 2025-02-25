@@ -41,20 +41,21 @@ class AuthController extends Controller
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
-
+    
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
-
+    
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'jabatan' => 'user', // Set kolom jabatan otomatis menjadi 'user'
         ]);
-
+    
         Auth::login($user);
-
-        return redirect()->intended('dashboard');
+    
+        return redirect()->route('login');
     }
 
     public function logout(Request $request)

@@ -51,12 +51,13 @@
                 <div class="toggle-panel toggle-left">
                     <h1>Welcome Back!</h1>
                     <p>Enter your personal details to use all of site features</p>
-                    <button class="hidden" id="login">Sign In</button>
+                    <button class="hidden" id="login">Masuk</button>
                 </div>
                 <div class="toggle-panel toggle-right">
-                    <h1>Login Admin Panel</h1>
-                    <!-- <p>Register with your personal details to use all of site features</p>
-                    <button class="hidden" id="register">Sign Up</button> -->
+                    <h1>Login Panel</h1>
+                    <p>Register with your personal details to use all of site features</p>
+                    <!-- Tombol untuk mengarahkan ke route register -->
+                    <button class="hidden" id="register">Daftar</button>
                 </div>
             </div>
         </div>
