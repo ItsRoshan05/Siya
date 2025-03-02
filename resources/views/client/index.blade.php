@@ -31,6 +31,17 @@
 
     <!-- Main CSS File -->
     <link href="{{ asset('client/css/main.css') }}" rel="stylesheet">
+    <style>
+        .gallery-img {
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .gallery-img:hover {
+            transform: scale(1.05);
+        }
+
+    </style>
     <!-- =======================================================
   * Template Name: HeroBiz
   * Template URL: https://bootstrapmade.com/herobiz-bootstrap-business-template/
@@ -59,6 +70,7 @@
                     <li><a href="#about">About</a></li>
                     <li><a href="#testimonials">Testimonials</a></li>
                     <li><a href="#donate">Donation</a></li>
+                    <li><a href="#galeri">Galeri</a></li>
 
                     <li><a href="#contact">Contact</a></li>
                 </ul>
@@ -386,6 +398,62 @@
             </div>
         </section>
 
+        <!-- Section Galeri -->
+        <section class="container my-5" id="galeri">
+            <h2 class="text-center mb-4">Galeri Kami</h2>
+            <div class="row">
+                <!-- Gambar 1 -->
+                <div class="col-md-4 mb-4">
+                    <img src="{{ asset('assets/img/1.jpeg') }}" class="img-fluid gallery-img"
+                        alt="Gambar 1" data-bs-toggle="modal" data-bs-target="#galleryModal"
+                        onclick="changeModalImage('{{ asset('assets/img/1.jpeg') }}')">
+                </div>
+                <!-- Gambar 2 -->
+                <div class="col-md-4 mb-4">
+                    <img src="{{ asset('assets/img/2.jpeg') }}" class="img-fluid gallery-img"
+                        alt="Gambar 2" data-bs-toggle="modal" data-bs-target="#galleryModal"
+                        onclick="changeModalImage('{{ asset('assets/img/2.jpeg') }}')">
+                </div>
+                <!-- Gambar 3 -->
+                <div class="col-md-4 mb-4">
+                    <img src="{{ asset('assets/img/3.jpeg') }}" class="img-fluid gallery-img"
+                        alt="Gambar 3" data-bs-toggle="modal" data-bs-target="#galleryModal"
+                        onclick="changeModalImage('{{ asset('assets/img/3.jpeg') }}')">
+                </div>
+                <!-- Gambar 4 -->
+                <div class="col-md-4 mb-4">
+                    <img src="{{ asset('assets/img/4.jpeg') }}" class="img-fluid gallery-img"
+                        alt="Gambar 4" data-bs-toggle="modal" data-bs-target="#galleryModal"
+                        onclick="changeModalImage('{{ asset('assets/img/4.jpeg') }}')">
+                </div>
+                <!-- Gambar 5 -->
+                <div class="col-md-4 mb-4">
+                    <img src="{{ asset('assets/img/5.jpeg') }}" class="img-fluid gallery-img"
+                        alt="Gambar 5" data-bs-toggle="modal" data-bs-target="#galleryModal"
+                        onclick="changeModalImage('{{ asset('assets/img/5.jpeg') }}')">
+                </div>
+                <div class="col-md-4 mb-4">
+                    <img src="{{ asset('assets/img/6.jpeg') }}" class="img-fluid gallery-img"
+                        alt="Gambar 6" data-bs-toggle="modal" data-bs-target="#galleryModal"
+                        onclick="changeModalImage('{{ asset('assets/img/6.jpeg') }}')">
+                </div>
+            </div>
+        </section>
+
+        <!-- Modal -->
+        <div class="modal fade" id="galleryModal" tabindex="-1" aria-labelledby="galleryModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="galleryModalLabel">Galeri Gambar</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body text-center">
+                        <img id="modalImage" src="" class="img-fluid" alt="Modal Image">
+                    </div>
+                </div>
+            </div>
+        </div>
 
 
 
@@ -577,10 +645,18 @@
     <script src="{{ asset('client/vendor/swiper/swiper-bundle.min.js') }}"></script>
     <script src="{{ asset('client/vendor/imagesloaded/imagesloaded.pkgd.min.js') }}"></script>
     <script src="{{ asset('client/vendor/isotope-layout/isotope.pkgd.min.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+
 
     <!-- Main JS File -->
     <script src="{{ asset('client/js/main.js') }}"></script>
+    <script>
+        function changeModalImage(imageUrl) {
+            document.getElementById('modalImage').src = imageUrl;
+        }
 
+    </script>
 
 </body>
 
