@@ -41,7 +41,7 @@ class DonaturController extends Controller
 
     public function edit(User $donatur)
     {
-        return view('donaturs.edit', compact('donatur'));
+        return view('admin.donaturs.edit', compact('donatur'));
     }
 
     public function update(Request $request, User $donatur)
@@ -49,15 +49,13 @@ class DonaturController extends Controller
         // Validasi data
         $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email,' . $donatur->id,
-            'password' => 'nullable|string|min:6|confirmed',
+            'email' => 'required|email',
         ]);
 
         // Update data donatur
         $donatur->update([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => $request->password ? bcrypt($request->password) : $donatur->password,
         ]);
 
         return redirect()->route('donaturs.index')->with('success', 'Donatur berhasil diperbarui.');
