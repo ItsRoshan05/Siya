@@ -10,13 +10,18 @@ use Illuminate\Support\Facades\Log;
 use App\Models\User;
 use App\Models\Pengeluaran;
 use Illuminate\Support\Facades\Http;
+use Carbon\Carbon;
+
 
 class ClientController extends Controller
 {
     public function index() {
+
+        $tahun = Carbon::now()->year;
+        $bulan = Carbon::now()->month;
         $donations = Donation::where('is_verify', true)->get();
-        $totalDonasi = Donation::where('is_verify', true)->sum('donation_amount');
-        
+        $totalDonasi = Donation::where('is_verify', true)->whereYear('created_at', $tahun)->whereMonth('created_at', $bulan)->sum('donation_amount');
+        $dataDonation = Donation::where('is_verify', true)->whereYear('created_at', $tahun)->whereMonth('created_at', $bulan)->get();
         $kegiatans = Kegiatan::all(); // Fetch all kegiatan
         // Menghitung total pengeluaran
         $totalPengeluaran = Pengeluaran::sum('jumlah_pengeluaran');
@@ -24,7 +29,7 @@ class ClientController extends Controller
         // Menghitung saldo kas
         $saldoKas = $totalDonasi - $totalPengeluaran;
             
-        return view('client.index', compact('donations', 'kegiatans','saldoKas'));
+        return view('client.index', compact('dataDonation','donations', 'kegiatans','saldoKas','totalDonasi'));
     }
     
     public function storeDonation(Request $request)
@@ -72,7 +77,7 @@ class ClientController extends Controller
                 'Authorization' => 'SqFR46v45kVczgLegs2Z',
             ])->post('https://api.fonnte.com/send', [
                 'target' => $request->phone,
-                'message' => "Halo {$request->nama}, terima kasih telah berdonasi sebesar Rp" . number_format($request->donation_amount, 0, ',', '.') . ".",
+                'message' => "Halo {$request->nama}, terima kasih telah berdonasi sebesar Rp" . number_format($request->donation_amount, 0, ',', '.') . "." . "\n\n" . "Untuk melihat catatan pengeluaran, klik link berikut: 127.0.0.1/login",
             ]);
 
             if ($whatsappResponse->failed()) {
